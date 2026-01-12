@@ -22,6 +22,23 @@ const ExitPage = () => {
     const [prizeName, setPrizeName] = useState<string | null>(null);
     const [prizeImageUrl, setPrizeImageUrl] = useState<string | null>(null);
 
+    // 1. LÓGICA DE PROTECCIÓN CONTRA REFRESCAR (beforeunload)
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            // Cancelar el evento según el estándar
+            e.preventDefault();
+            // Chrome requiere que returnValue sea un string vacío para mostrar la alerta
+            e.returnValue = '';
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    // 2. LÓGICA DE RECUPERACIÓN DE DATOS
     useEffect(() => {
         let finalPrizeName = null;
         let storedDataAvailable = false;
@@ -53,47 +70,49 @@ const ExitPage = () => {
     }, [state]);
 
     return (
-        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden  p-4 overscroll-y-none">
+        // CAMBIO 1: p-[10px] para dejar exactamente 10px de margen a los lados
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden p-[10px] overscroll-y-none">
             
-            {/* BACKGROUND IMAGE - backgroundcc */}
+            {/* BACKGROUND IMAGE */}
             <BackgroundCC />
 
             {/* CONTENIDO PRINCIPAL */}
-            <div className="relative z-10 w-full max-w-md flex flex-col items-center text-center space-y-4">
+            {/* CAMBIO 2: Cambié max-w-md a max-w-lg para que sea un poco más ancho en pantallas grandes */}
+            <div className="relative z-10 w-full max-w-lg flex flex-col items-center text-center space-y-4">
                 
-                {/* Logo Superior con Responsive Width */}
+                {/* Logo Superior */}
                 <img
-                    src="/spritelogo.png"
+                    src="/logoschfull.png"
                     alt="Logo"
                     className="w-48 sm:w-60 h-auto mb-2" 
                 />
 
                 <div className="space-y-1">
-                    <h1 className="text-4xl sm:text-5xl text-white font-semibold leading-tight">
+                    <h1 className="text-4xl sm:text-6xl text-black font-semibold leading-tight">
                         <span className="block uppercase tracking-tighter font-mont-bold-italic">Felicidades</span>
-                        <span className="block text-3xl sm:text-4xl opacity-90 font-mont-medium">HAS GANADO</span>
+                        <span className="block text-4xl sm:text-4xl opacity-90 font-mont-bold">HAS GANADO</span>
                     </h1>
                 </div>
 
                 {/* Bloque del Premio */}
                 <div className="w-full px-2 py-2 flex flex-col items-center justify-center">
                     
-                    {/* Contenedor de Imagen con altura máxima adaptable */}
+                    {/* Contenedor de Imagen */}
                     <div className="w-full flex justify-center items-center min-h-[180px] sm:min-h-[224px]">
                         {prizeImageUrl ? (
                             <img 
                                 src={prizeImageUrl} 
                                 alt={`Premio: ${prizeName}`} 
-                                className="max-h-48 sm:max-h-64 object-contain drop-shadow-2xl animate-bounce-slow" 
+                                className="max-w-100 sm:max-w-100 object-contain drop-shadow-2xl animate-bounce-slow" 
                             />
                         ) : (
-                            <div className='flex items-center justify-center text-white/80 font-bold italic animate-pulse'>
+                            <div className='flex items-center justify-center text-black font-bold italic animate-pulse'>
                                 Cargando premio...
                             </div>
                         )}
                     </div>
 
-                    <p className="text-2xl sm:text-3xl font-mont-bold text-white mt-2 px-4 leading-tight w-80">
+                    <p className="text-4xl sm:text-4xl font-mont-extrabold text-black mt-2 px-4 leading-tight w-full">
                         {prizeName} 
                     </p>
                     

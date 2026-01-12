@@ -25,21 +25,27 @@ const BackgroundCC: React.FC = () => {
       {/* Capa 1: Fondo Animado */}
       <div className="fixed inset-0 w-full h-full -z-20 animate-sunset-mesh" />
 
-      {/* Capa 2: Imagen de Palmeras SOBREEXPUESTAS */}
+      {/* Capa 2: Imagen de Palmeras CORREGIDA */}
       <div  
         className="fixed inset-0 w-full h-full -z-10 pointer-events-none"
         style={{
           backgroundImage: "url('/bgpalmerasch.png')",
-          backgroundPosition: 'bottom center', 
+          /* CAMBIO 1: Position center bottom para que crezca desde abajo hacia arriba y centrado */
+          backgroundPosition: 'center bottom', 
           backgroundRepeat: 'no-repeat',
-          backgroundSize: '120% auto', 
           
-          /* CAMBIOS PARA SOBREEXPONER: */
-          /* 'screen' mezcla la luz de la imagen con el fondo, ideal para efectos brillantes */
+          /* CAMBIO 2: 'cover' asegura que la imagen SIEMPRE cubra todo el alto y el ancho del div,
+             recortando los sobrantes si es necesario, pero nunca dejando espacios vacíos. */
+          backgroundSize: 'cover', 
+          
+          /* Si prefieres forzar ESTRICTAMENTE que coincida con el alto de la pantalla 
+             (aunque deje huecos a los lados en pantallas muy anchas), 
+             cambia la línea de arriba por: 
+             backgroundSize: 'auto 100vh', 
+          */
+
           mixBlendMode: 'screen', 
-          /* Subimos la opacidad para que se note la sobreexposición */
           opacity: 0.4,
-          /* Reforzamos el brillo de la palmera específicamente */
           filter: 'brightness(1.2) contrast(1.1)'
         }}
       />
