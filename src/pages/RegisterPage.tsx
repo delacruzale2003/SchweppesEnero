@@ -45,28 +45,30 @@ const RegisterPage: React.FC = () => {
         <BackgroundCC />
 
         {/* 2. Capa de Contenido (Se blurrea SOLO esto cuando loading es true) */}
-        <div className={`relative z-10 w-full flex flex-col items-center p-4 pb-28 transition-all duration-500 border-none ${loading ? 'blur-md pointer-events-none' : 'blur-0'}`}>
+        <div className={`relative z-10 w-full flex flex-col items-center p-1 pb-28 transition-all duration-500 border-none ${loading ? 'blur-md pointer-events-none' : 'blur-0'}`}>
             
             {/* Logo de la Campaña - Ajustado tamaño responsive y márgenes */}
             <img
                 src="/logoschfull.png"
                 alt=""
-                className="w-48 sm:w-60 h-auto my-6 sm:my-5"
+                className="w-48 sm:w-60 h-auto my-4 sm:my-5"
             />
 
-            {/* Contenedor del Formulario - Padding ajustado */}
+            {/* Contenedor del Formulario - Width ajustado a w-[85%] para más margen */}
             <form
                 id="registrationForm"
                 onSubmit={handleSubmit}
-                className="bg-transparent border border-black border-3 rounded-4xl p-5 sm:p-6 pt-1 w-full max-w-md space-y-2 shadow-2xl mb-2"
+                // CAMBIOS: 
+                // 1. 'w-[85%]' en lugar de 'w-full' para dejar margen a los lados.
+                // 2. 'max-w-md' para mantenerlo compacto.
+                className="bg-transparent border border-2 border-black rounded-3xl p-4 sm:p-6 pt-5 w-[84%] max-w-[84%] space-y-2 mb-2"
             >
-                <h1 className="text-lg sm:text-xl text-start text-black font-mont-bold">
-                    1. REGISTRATE PARA PARTICIPAR
+                <h1 className="text-sm sm:text-xl text-start text-black font-mont-extrabold leading-none">
+                    1 . REGISTRATE PARA PARTICIPAR
                 </h1>
                 
-                {/* Ajuste solicitado: line-height más pegado (leading-tight) y letra un poco más chica */}
-                <h2 className="text-start font-mont-bold text-black text-base sm:text-lg mb-3 leading-none">
-                    Llena tus datos y participa por fabulosos premios
+                <h2 className="text-start font-mont-bold  text-md text-base sm:text-lg mb-3 leading-none tracking-tight">
+                    Llena tus datos y participa <br /> por fabulosos premios
                 </h2>
 
                 {message && (
@@ -74,7 +76,7 @@ const RegisterPage: React.FC = () => {
                 )}
 
                 <div className="">
-                    <label className="block text-black text-sm sm:text-base font-medium font-mont-extrabold mt-2">Nombre completo</label>
+                    <label className="block text-black text-md sm:text-base font-medium font-mont-bold mt-1">Nombres y apellidos</label>
                     <input
                         type="text"
                         name="name"
@@ -83,12 +85,12 @@ const RegisterPage: React.FC = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         maxLength={45}
-                        className="bg-transparent border-3 border-black p-2.5 sm:p-3 w-full rounded-full text-black text-sm sm:text-base placeholder-black/70 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors pl-5 shadow-inner disabled:opacity-50"
+                        className="bg-transparent border-2 border-black p-2 sm:p-3 w-full rounded-full text-black text-sm sm:text-base placeholder-black/70 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors pl-5 shadow-inner disabled:opacity-50"
                     />
                 </div>
 
                 <div className="">
-                    <label className="block text-black text-sm sm:text-base font-medium font-mont-extrabold mt-2">DNI</label>
+                    <label className="block text-black text-md sm:text-base font-medium font-mont-bold mt-1">Numero de dni</label>
                     <input
                         type="text"
                         name="dni"
@@ -97,12 +99,12 @@ const RegisterPage: React.FC = () => {
                         onChange={(e) => setDni(e.target.value)}
                         maxLength={11}
                         required
-                        className="bg-transparent border-3 border-black p-2.5 sm:p-3 w-full rounded-full text-black text-sm sm:text-base placeholder-black/70 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors pl-5 shadow-inner disabled:opacity-50"
+                        className="bg-transparent border-2 border-black p-2 sm:p-3 w-full rounded-full text-black text-sm sm:text-base placeholder-black/70 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors pl-5 shadow-inner disabled:opacity-50"
                     />
                 </div>
 
                 <div className="">
-                    <label className="block text-black text-sm sm:text-base font-medium font-mont-extrabold mt-2">Número de teléfono</label>
+                    <label className="block text-black text-md sm:text-base font-medium font-mont-bold mt-1">Teléfono</label>
                     <input
                         type="tel"
                         name="phone_number"
@@ -111,13 +113,13 @@ const RegisterPage: React.FC = () => {
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         maxLength={9}
-                        className="bg-transparent border-3 border-black p-2.5 sm:p-3 w-full rounded-full text-black text-sm sm:text-base placeholder-black/70 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors pl-5 shadow-inner disabled:opacity-50"
+                        className="bg-transparent border-2 border-black p-2 sm:p-3 w-full rounded-full text-black text-sm sm:text-base placeholder-black/70 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors pl-5 shadow-inner disabled:opacity-50"
                     />
                 </div>
 
-                <div className="space-y-1">
-                    <label className="block text-black text-sm sm:text-base font-medium font-mont-extrabold mt-2">Comprobante / Foto</label>
-                    <div className="mt-2">
+                <div className="space-y-0">
+                    <label className="block text-black text-md sm:text-base font-medium font-mont-bold mt-1">Foto de Voucher</label>
+                    <div className="mt-0">
                         <input
                             type="file"
                             id="photo-upload"
@@ -130,9 +132,9 @@ const RegisterPage: React.FC = () => {
                         />
                         <label
                             htmlFor="photo-upload"
-                            className={`cursor-pointer inline-flex font-mont-bold tracking-wide items-center justify-center w-full py-2 px-4 rounded-full border-2 border-black text-black text-sm sm:text-base font-semibold uppercase transition-colors ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-black hover:text-white'}`}
+                            className={`cursor-pointer inline-flex font-mont-bold tracking-wide leading-none items-center justify-left w-full py-1 px-4 rounded-full border-2 border-black text-black text-xl sm:text-base font-semibold uppercase transition-colors ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-black hover:text-white'}`}
                         >
-                            Seleccionar foto
+                            SELECCIONAR ARCHIVO
                         </label>
                     </div>
 
